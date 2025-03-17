@@ -34,5 +34,20 @@ session_start();
     <?php
         include_once 'footer.php';
     ?>
+
+    <!-- <script src="https://cdn-script.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
+    <script type="text/javascript">
+        $( document ).ready(function() {
+           $(window).trigger("popstate");
+        });
+
+
+        $(window).on("popstate", function() {
+            // if (document.referrer.includes("home.php")) {
+                alert("The last visited page was home.php");
+            // }
+        });
+ 
+    </script> -->
 </body>
 </html>

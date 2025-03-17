@@ -1,12 +1,17 @@
 <?php
+require_once 'dbh.inc.php';
+require_once 'functions.inc.php';
+
+if (isSessionStarted()) {
+    header("Location: ../../home.php");
+    exit(); // Ensure script stops after redirection
+}
+
 
 if (isset($_POST["submit"])) {
-
+    
     $username = $_POST["username"];
     $pwd = $_POST["pwd"];
-
-    require_once 'dbh.inc.php';
-    require_once 'functions.inc.php';
 
     if (emptyInputLogin($username, $pwd) !== false) {
         header("location: ../../login.php?error=emptyinput");

@@ -5,8 +5,11 @@
 //     session_unset();
 //     session_destroy();
 // }
+session_start();
+session_regenerate_id(true); // Refresh the session ID
 
-if (session_status() === PHP_SESSION_NONE) {
+
+if ( !empty($_SESSION) ) {
     header("location: home.php");
 }
 

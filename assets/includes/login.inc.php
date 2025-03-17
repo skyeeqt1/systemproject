@@ -3,7 +3,7 @@ require_once 'dbh.inc.php';
 require_once 'functions.inc.php';
 
 if (isSessionStarted()) {
-    header("Location: ../../home.php");
+    // header("Location: ../../home.php");
     exit(); // Ensure script stops after redirection
 }
 

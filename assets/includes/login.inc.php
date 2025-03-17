@@ -1,15 +1,10 @@
 <?php
+
 require_once 'dbh.inc.php';
 require_once 'functions.inc.php';
 
-if (isSessionStarted()) {
-    // header("Location: ../../home.php");
-    exit(); // Ensure script stops after redirection
-}
-
-
 if (isset($_POST["submit"])) {
-    
+
     $username = $_POST["username"];
     $pwd = $_POST["pwd"];
 
@@ -18,9 +13,12 @@ if (isset($_POST["submit"])) {
         exit();
     }
 
+    
     loginUser($conn, $username, $pwd);
+
+} else {
+    header("location: ../../login.php");
+    exit(); 
 }
-    else {
-        header("location: ../../login.php");
-        exit(); 
-    }
+
+?>

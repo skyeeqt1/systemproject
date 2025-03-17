@@ -1,8 +1,16 @@
 <?php
-session_start();
+
+// if (session_status() !== PHP_SESSION_NONE) {
+//     // header("location: ../../logout.php");
+//     session_unset();
+//     session_destroy();
+// }
+
+if (session_status() === PHP_SESSION_NONE) {
+    header("location: home.php");
+}
+
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,19 +43,5 @@ session_start();
         include_once 'footer.php';
     ?>
 
-    <!-- <script src="https://cdn-script.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
-    <script type="text/javascript">
-        $( document ).ready(function() {
-           $(window).trigger("popstate");
-        });
-
-
-        $(window).on("popstate", function() {
-            // if (document.referrer.includes("home.php")) {
-                alert("The last visited page was home.php");
-            // }
-        });
- 
-    </script> -->
 </body>
 </html>

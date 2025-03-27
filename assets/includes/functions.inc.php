@@ -279,29 +279,31 @@ function getFilteredProducts($conn, $priceSQL, $brandIDs, $productTypeIDs, $tagI
     return $products;
 }
 
+function getBudgetPCs($conn) {
+    // SQL query to select all budget PCs
+    $sql = "SELECT * FROM budgetpc ORDER BY bpcName ASC;";
+    $stmt = mysqli_stmt_init($conn);
 
-function getBudgetPCs() {
-    // Include the database connection
-    require_once 'dbh.inc.php';
-
-    // Connect to the database
-    $conn = connectDatabase();
-
-    // Query the database for budget PCs
-    $result = $conn->query("SELECT * FROM budgetpc");
-
-    // Fetch all results as an associative array
-    $budgetPCs = [];
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $budgetPCs[] = $row;
-        }
+    // Prepare the statement
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        error_log("SQL Statement Preparation Failed: " . mysqli_error($conn));
+        return []; // Return an empty array if the query fails
     }
 
-    // Close the database connection
-    $conn->close();
+    // Execute the statement
+    mysqli_stmt_execute($stmt);
 
-    // Return the results
+    // Get the result set
+    $resultData = mysqli_stmt_get_result($stmt);
+
+    // Fetch all budget PCs into an array
+    $budgetPCs = [];
+    while ($row = mysqli_fetch_assoc($resultData)) {
+        $budgetPCs[] = $row;
+    }
+
+    // Close the statement and return budget PCs
+    mysqli_stmt_close($stmt);
     return $budgetPCs;
 }
 ?>

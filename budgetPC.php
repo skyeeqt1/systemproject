@@ -1,5 +1,7 @@
 <?php
     session_start();
+    include_once './assets/includes/dbh.inc.php';
+    require_once './assets/includes/functions.inc.php'; // Include necessary functions
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +21,9 @@
 
     <h2>Prebuilt Budget PCs</h2>
     <div class="product-grid">
-        <?php if (!empty($budgetPCs)) : ?>
+        <?php 
+            $budgetPCs = getBudgetPCs($conn);
+            if (!empty($budgetPCs)) : ?>
             <?php foreach ($budgetPCs as $pc) : ?>
                 <div class="product-card">
                     <img src="budgetPCs/<?php echo htmlspecialchars($pc['bpcImage']); ?>" alt="<?php echo htmlspecialchars($pc['bpcName']); ?>">

@@ -61,40 +61,46 @@
                     <div class="filter-card">
                         <h3>Brand</h3>
                         <?php
-                            $brands = getBrands($conn); // Fetch brands from the database
-                            foreach ($brands as $brand) {
-                                echo '<div class="form-check">';
-                                echo '<input class="form-check-input" type="checkbox" name="brand[]" value="' . $brand['BrandID'] . '" id="brand' . $brand['BrandID'] . '">';
-                                echo '<label class="form-check-label" for="brand' . $brand['BrandID'] . '">' . $brand['BrandName'] . '</label>';
-                                echo '</div>';
-                            }
+                        $brands = getBrands($conn); // Fetch brands from the database
+                        foreach ($brands as $brand):
                         ?>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="brand[]" value="<?= $brand['BrandID'] ?>" id="brand<?= $brand['BrandID'] ?>">
+                                <label class="form-check-label" for="brand<?= $brand['BrandID'] ?>">
+                                    <?= htmlspecialchars($brand['BrandName']) ?>
+                                </label>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
                     <div class="filter-card">
                         <h3>Components</h3>
                         <?php
-                            $productTypes = getProductTypes($conn); // Fetch product types from the database
-                            foreach ($productTypes as $type) {
-                                echo '<div class="form-check">';
-                                echo '<input class="form-check-input" type="checkbox" name="productType[]" value="' . $type['ProductTypeID'] . '" id="type' . $type['ProductTypeID'] . '">';
-                                echo '<label class="form-check-label" for="type' . $type['ProductTypeID'] . '">' . $type['ProductTypeName'] . '</label>';
-                                echo '</div>';
-                            }
+                        $productTypes = getProductTypes($conn); // Fetch product types from the database
+                        foreach ($productTypes as $type):
                         ?>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="productType[]" value="<?= $type['ProductTypeID'] ?>" id="type<?= $type['ProductTypeID'] ?>">
+                                <label class="form-check-label" for="type<?= $type['ProductTypeID'] ?>">
+                                    <?= htmlspecialchars($type['ProductTypeName']) ?>
+                                </label>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
                     <div class="filter-card">
                         <h3>Tags</h3>
                         <?php
-                            $tags = getTags($conn); // Fetch tags from the database
-                            foreach ($tags as $tag) {
-                                echo '<div class="form-check">';
-                                echo '<input class="form-check-input" type="checkbox" name="tag[]" value="' . $tag['TagID'] . '" id="tag' . $tag['TagID'] . '">';
-                                echo '<label class="form-check-label" for="tag' . $tag['TagID'] . '">' . $tag['TagName'] . '</label>';
-                                echo '</div>';
-                            }
+                        $tags = getTags($conn); // Fetch tags from the database
+                        foreach ($tags as $tag):
                         ?>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="tag[]" value="<?= $tag['TagID'] ?>" id="tag<?= $tag['TagID'] ?>">
+                                <label class="form-check-label" for="tag<?= $tag['TagID'] ?>">
+                                    <?= htmlspecialchars($tag['TagName']) ?>
+                                </label>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
-                    <button type="submit" class="btn btn-primary">Apply Filters</button>
+                    <!-- <button type="submit" class="btn btn-primary">Apply Filters</button> -->
                 </form>
             </div>
             <div class="col-md-9 products">

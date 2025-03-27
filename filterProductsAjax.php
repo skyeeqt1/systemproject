@@ -27,22 +27,23 @@ $priceSQL = !empty($priceConditions) ? "(" . implode(" OR ", $priceConditions) .
 $filteredProducts = getFilteredProducts($conn, $priceSQL, $brandIDs, $productTypeIDs, $tagIDs);
 
 // Output filtered products as HTML
-if (!empty($filteredProducts)) {
-    foreach ($filteredProducts as $product) {
-        echo '<div class="col-md-4 mt-4">';
-        echo '<div class="card">';
-        echo '<img src="' . htmlspecialchars($product['ImageURL'] ? 'https://thumb.ac-illust.com/b1/b170870007dfa419295d949814474ab2_t.jpeg' : 'https://thumb.ac-illust.com/b1/b170870007dfa419295d949814474ab2_t.jpeg') . '" class="card-img-top" alt="' . htmlspecialchars($product['ProductName']) . '">';
-        echo '<div class="card-body">';
-        echo '<h5 class="card-title">' . htmlspecialchars($product['ProductName']) . '</h5>';
-        echo '<p class="card-text">Price: $' . htmlspecialchars($product['Price']) . '</p>';
-        echo '<p class="card-text">Brand: ' . htmlspecialchars($product['BrandName']) . '</p>';
-        echo '<p class="card-text">Type: ' . htmlspecialchars($product['ProductTypeName']) . '</p>';
-        echo '</div>';
-        echo '</div>';
-        echo '</div>';
-    }
-} else {
-    echo '<p>No products match the selected filters.</p>';
-}
-
+if (!empty($filteredProducts)):
+    foreach ($filteredProducts as $product):
 ?>
+    <div class="col-md-4 mt-4">
+        <div class="card">
+            <img src="<?= htmlspecialchars($product['ImageURL'] ?: 'https://thumb.ac-illust.com/b1/b170870007dfa419295d949814474ab2_t.jpeg') ?>" class="card-img-top" alt="<?= htmlspecialchars($product['ProductName']) ?>">
+            <div class="card-body">
+                <h5 class="card-title"><?= htmlspecialchars($product['ProductName']) ?></h5>
+                <p class="card-text">Price: $<?= htmlspecialchars($product['Price']) ?></p>
+                <p class="card-text">Brand: <?= htmlspecialchars($product['BrandName']) ?></p>
+                <p class="card-text">Type: <?= htmlspecialchars($product['ProductTypeName']) ?></p>
+            </div>
+        </div>
+    </div>
+<?php
+    endforeach;
+else:
+?>
+    <p>No products match the selected filters.</p>
+<?php endif; ?>

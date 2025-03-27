@@ -279,6 +279,31 @@ function getFilteredProducts($conn, $priceSQL, $brandIDs, $productTypeIDs, $tagI
     return $products;
 }
 
+
+function getBudgetPCs() {
+    // Include the database connection
+    require_once 'dbh.inc.php';
+
+    // Connect to the database
+    $conn = connectDatabase();
+
+    // Query the database for budget PCs
+    $result = $conn->query("SELECT * FROM budgetpc");
+
+    // Fetch all results as an associative array
+    $budgetPCs = [];
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $budgetPCs[] = $row;
+        }
+    }
+
+    // Close the database connection
+    $conn->close();
+
+    // Return the results
+    return $budgetPCs;
+}
 ?>
 
 

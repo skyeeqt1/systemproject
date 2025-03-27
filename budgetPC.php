@@ -20,22 +20,32 @@
     <h2>Prebuilt Budget PCs</h2>
     <div class="product-grid">
         <?php
-            $conn = new mysqli("localhost", "root", "", "project");
+            $conn = connectDatabase();
 
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
+             // Query the database for budget PCs
+             $result = $conn->query("SELECT * FROM budgetpc");
+         
+             // Check if there are results
+             if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) :
+            ?>
+                    <div class="product-card">
+                        <img src="budgetPCs/<?php echo htmlspecialchars($row['bpcImage']); ?>" alt="<?php echo htmlspecialchars($row['bpcName']); ?>">
+                        <h3>
+                            <a href="PCdetails.php?id=<?php echo htmlspecialchars($row['pcID']); ?>">
+                                <?php echo htmlspecialchars($row['bpcName']); ?>
+                            </a>
+                        </h3>
+                        <p class="price">₱<?php echo htmlspecialchars($row['bpcPrice']); ?></p>
+                        <a href="PCdetails.php?id=<?php echo htmlspecialchars($row['pcID']); ?>" class="buy-btn">View Details</a>
+                    </div>
+            <?php
+                endwhile;
+            } else {
+                echo "<p>No products found.</p>";
             }
 
-            $result = $conn->query("SELECT * FROM budgetpc");
-
-            while ($row = $result->fetch_assoc()) {
-                echo "<div class='product-card'>";
-                echo "<img src='budgetPCs/{$row['bpcImage']}' alt='{$row['bpcName']}'>";
-                echo "<h3><a href='PCdetails.php?id={$row['pcID']}'>{$row['bpcName']}</a></h3>"; 
-                echo "<p class='price'>₱{$row['bpcPrice']}</p>";
-                echo "<a href='PCdetails.php?id={$row['pcID']}' class='buy-btn'>View Details</a>";
-                echo "</div>";
-            }
+            // Close the database connection
             $conn->close();
         ?>
     </div>

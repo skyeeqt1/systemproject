@@ -36,9 +36,12 @@
         include_once 'header.php';
     ?>
 
-    <h2>All Products</h2>
-    <div class="container">
+    
+    <div class="container pt-5 mt-5">
         <div class="row">
+            <div class="col-12">
+                <h2>All Products</h2>
+            </div>
             <div class="col-md-3 filter">
                 <form id="filterForm">
                     
@@ -147,5 +150,7 @@
         fetchFilteredProducts();
     });
     </script>
+
+
 </body>
 </html>

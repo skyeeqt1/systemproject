@@ -14,12 +14,13 @@ session_start();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/home.css">      
+    <link rel="stylesheet" href="assets/css/main.css">     
 </head>
 <body>
     <?php
         include_once 'header.php';
     ?>
-    <div class="container pt-5 mt-5">
+    <div class="container pt-5 mt-5 vh-50">
         <h2>Experience a whole new way of building your dream PC with a fresh perspective and endless possibilities</h2>
         <p>Building your own PC is a satisfying experience. With our fresh approach, we’ll guide you in ensuring that your selected parts are fully compatible</p>
 

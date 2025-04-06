@@ -38,7 +38,16 @@ if (!empty($filteredProducts)):
                 <p class="card-text">Price: ₱<?= htmlspecialchars($product['Price']) ?></p>
                 <p class="card-text">Brand: <?= htmlspecialchars($product['BrandName']) ?></p>
                 <p class="card-text">Type: <?= htmlspecialchars($product['ProductTypeName']) ?></p>
+                
+                <div class="add-to-cart-btn">
+                    <form action="<?= "http://" . $_SERVER['SERVER_NAME'] ?>/skyee-project/systemproject/assets/includes/add-to-cart.php" method="POST">
+                        <input type="hidden" name="product_id" value="<?= $product['productID'] ?>">
+                        <input type="hidden" name="price" value="<?= $product['Price'] ?>">
+                        <button type="submit"  name="add_to_cart">Add to Cart</button>
+                    </form>
+                </div>
             </div>
+           
         </div>
     </div>
 <?php

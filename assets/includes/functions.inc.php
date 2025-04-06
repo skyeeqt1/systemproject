@@ -306,6 +306,135 @@ function getBudgetPCs($conn) {
     mysqli_stmt_close($stmt);
     return $budgetPCs;
 }
+
+
+
+function getCartId($userId) {
+    $conn = connectDatabase();
+
+    // Check if the user already has a cart
+    $stmt = mysqli_prepare($conn, "SELECT cart_id FROM Carts WHERE user_id = ?");
+    mysqli_stmt_bind_param($stmt, "i", $userId);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $cart = mysqli_fetch_assoc($result);
+
+    // If no cart, create one
+    if (!$cart) {
+        $stmt = mysqli_prepare($conn, "INSERT INTO Carts (user_id) VALUES (?)");
+        mysqli_stmt_bind_param($stmt, "i", $userId);
+        mysqli_stmt_execute($stmt);
+        return mysqli_insert_id($conn);
+    }
+
+    return $cart['cart_id'];
+}
+
+// function getCartId($userId) {
+//     $conn = connectDatabase();
+
+//     // Check if the user already has a cart
+//     $stmt = mysqli_prepare($conn, "SELECT cart_id FROM Carts WHERE user_id = ?");
+//     mysqli_stmt_bind_param($stmt, "i", $userId);
+//     mysqli_stmt_execute($stmt);
+//     $result = mysqli_stmt_get_result($stmt);
+//     $cart = mysqli_fetch_assoc($result);
+
+//     // If no cart, create one
+//     if (!$cart) {
+//         $stmt = mysqli_prepare($conn, "INSERT INTO Carts (user_id) VALUES (?)");
+//         mysqli_stmt_bind_param($stmt, "i", $userId);
+//         mysqli_stmt_execute($stmt);
+//         $cartId = mysqli_insert_id($conn); // Get the newly created cart ID
+//         // echo "New cart created with ID: " . $cartId; // Debugging line
+//         return $cartId;
+//     }
+
+//     return $cart['cart_id'];
+// }
+
+function addToCart($userId, $productId, $price) {
+    $conn = connectDatabase();
+    $cartId = getCartId($userId);
+
+    // Check if item already in cart
+    $stmt = mysqli_prepare($conn, "SELECT cart_detail_id, quantity FROM Cart_Details WHERE cart_id = ? AND product_id = ?");
+    mysqli_stmt_bind_param($stmt, "ii", $cartId, $productId);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $item = mysqli_fetch_assoc($result);
+
+    if ($item) {
+        // Update quantity
+        $newQty = $item['quantity'] + 1;
+        $stmt = mysqli_prepare($conn, "UPDATE Cart_Details SET quantity = ? WHERE cart_detail_id = ?");
+        mysqli_stmt_bind_param($stmt, "ii", $newQty, $item['cart_detail_id']);
+    } else {
+        // Insert new item
+        $stmt = mysqli_prepare($conn, "INSERT INTO Cart_Details (cart_id, product_id, quantity, price_at_time) VALUES (?, ?, 1, ?)");
+        mysqli_stmt_bind_param($stmt, "iid", $cartId, $productId, $price);
+    }
+
+    mysqli_stmt_execute($stmt);
+}
+
+function getCartItems($userId) {
+    $conn = connectDatabase();
+    $cartId = getCartId($userId);
+
+    $stmt = mysqli_prepare($conn, "
+        SELECT cd.product_id, p.ProductName, p.ImageURL, cd.quantity, cd.price_at_time 
+        FROM Cart_Details cd
+        JOIN Products p ON cd.product_id = p.ProductID
+        WHERE cd.cart_id = ?
+    ");
+    mysqli_stmt_bind_param($stmt, "i", $cartId);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    $items = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $items[] = $row;
+    }
+
+    return $items;
+}
+
+
+function removeFromCart($conn, $cartId, $productId) {
+    $sql = "DELETE FROM Cart_Details WHERE cart_id = ? AND product_id = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "ii", $cartId, $productId);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+}
+
+// Update product quantity in the cart
+function updateCartQuantity($conn, $cartId, $productId, $quantity) {
+    $conn = connectDatabase();
+    if ($quantity <= 0) {
+        removeFromCart($conn, $cartId, $productId); // If quantity is zero or less, remove it
+        return;
+    }
+
+    $sql = "UPDATE Cart_Details SET quantity = ? WHERE cart_id = ? AND product_id = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "iii", $quantity, $cartId, $productId);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+}
+
+// Calculate total cart price
+function getCartTotal($conn, $cartId) {
+    $sql = "SELECT SUM(quantity * price_at_time) AS total FROM Cart_Details WHERE cart_id = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "i", $cartId);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $row = mysqli_fetch_assoc($result);
+    mysqli_stmt_close($stmt);
+    return $row['total'] ?? 0;
+}
 ?>
 
 

@@ -435,6 +435,81 @@ function getCartTotal($conn, $cartId) {
     mysqli_stmt_close($stmt);
     return $row['total'] ?? 0;
 }
+
+function handleCheckout($userId, $checkoutData) {
+    $conn = connectDatabase();
+    $cartId = getCartId($userId);
+    $cartItems = getCartItems($userId);
+
+    if (empty($cartItems)) {
+        return false;
+    }
+
+    $total = getCartTotal($conn, $cartId);
+
+    // 1. Insert into Addresses
+    $addressId = insertAddress($conn, $checkoutData);
+
+    // 2. Insert into Orders
+    $orderId = insertOrder($conn, $userId, $total);
+
+    // 3. Link Order to Address
+    linkOrderToAddress($conn, $orderId, $addressId);
+
+    // 4. Insert Order Items
+    insertOrderItems($conn, $orderId, $cartItems);
+
+    // 5. Clear the Cart
+    clearCart($conn, $cartId);
+
+    return $orderId;
+}
+
+function insertAddress($conn, $data) {
+    $stmt = $conn->prepare("INSERT INTO Addresses (first_name, last_name, email, phone, street_address, city, province, zip_code)
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssssss",
+        $data['first_name'], $data['last_name'], $data['email'], $data['phone'],
+        $data['street_address'], $data['city'], $data['province'], $data['zip_code']
+    );
+    $stmt->execute();
+    $addressId = $stmt->insert_id;
+    $stmt->close();
+    return $addressId;
+}
+
+function insertOrder($conn, $userId, $total) {
+    $stmt = $conn->prepare("INSERT INTO Orders (user_id, total_amount) VALUES (?, ?)");
+    $stmt->bind_param("id", $userId, $total);
+    $stmt->execute();
+    $orderId = $stmt->insert_id;
+    $stmt->close();
+    return $orderId;
+}
+
+function linkOrderToAddress($conn, $orderId, $addressId) {
+    $stmt = $conn->prepare("INSERT INTO Order_Addresses (order_id, address_id) VALUES (?, ?)");
+    $stmt->bind_param("ii", $orderId, $addressId);
+    $stmt->execute();
+    $stmt->close();
+}
+
+function insertOrderItems($conn, $orderId, $cartItems) {
+    foreach ($cartItems as $item) {
+        $stmt = $conn->prepare("INSERT INTO Order_Items (order_id, product_id, quantity, price_at_time)
+                                VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("iiid", $orderId, $item['product_id'], $item['quantity'], $item['price_at_time']);
+        $stmt->execute();
+        $stmt->close();
+    }
+}
+
+function clearCart($conn, $cartId) {
+    $stmt = $conn->prepare("DELETE FROM Cart_Details WHERE cart_id = ?");
+    $stmt->bind_param("i", $cartId);
+    $stmt->execute();
+    $stmt->close();
+}
 ?>
 
 

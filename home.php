@@ -5,19 +5,30 @@ require_once './assets/includes/functions.inc.php'; // Include necessary functio
 session_start();
 
 // Check if the user is logged in
-if (!isset($_SESSION['userID'])) {
-    header("location: ./login.php");
-    // echo "Please log in to view your cart.";
-    exit;
+// if (!isset($_SESSION['userID'])) {
+//     header("location: ./login.php");
+//     // echo "Please log in to view your cart.";
+//     exit;
+// }
+
+if (isset($_SESSION['userID'])) {
+    // Prepare price range
+    $priceRange = null;
+    if ($priceMin !== null && $priceMax !== null) {
+        $priceRange = ['min' => $priceMin, 'max' => $priceMax];
+    }
+
+    // Fetch filtered products
+    $filteredProducts = getFilteredProducts($conn, $priceRange, $brandIDs, $productTypeIDs, $tagIDs);
+
+
+    $userId = $_SESSION['userID']; // Get the user ID from the session
+    $cartId = getCartId($userId); // Get the cart ID for the user
+
+    // Get cart items from the database
+    $cartItems = getCartItems($userId);
+    $total = getCartTotal($conn, $cartId); // Get the total price of the cart
 }
-
-$userId = $_SESSION['userID']; // Get the user ID from the session
-$cartId = getCartId($userId); // Get the cart ID for the user
-
-// Get cart items from the database
-$cartItems = getCartItems($userId);
-$total = getCartTotal($conn, $cartId); // Get the total price of the cart
-
 ?>
 
 <!DOCTYPE html>

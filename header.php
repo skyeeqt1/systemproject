@@ -13,7 +13,6 @@
                 <div class="col-md-7 justify-content-center d-flex gap-3">
                     <a class="nav-link text-dark fw-medium" href="./custom-build.php">System Builder</a>
                     <a class="nav-link text-dark fw-medium" href="./prebuilt.php">Pre-built PC</a>
-                    <a class="nav-link text-dark fw-medium" href="#">Laptops</a>
                 </div>
 
                 <div class="col-md-3 d-flex gap-3 align-items-center justify-content-end">

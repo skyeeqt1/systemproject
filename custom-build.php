@@ -28,8 +28,14 @@
     <title>PC Builder</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.min.js" integrity="sha384-RuyvpeZCxMJCqVUGFI0Do1mQrods/hhxYlcVfGPOfQtPJh0JCw12tUAZ/Mv10S7D" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/budgetPC.css">
+    <link rel="stylesheet" href="assets/css/budgetPC.css"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap" rel="stylesheet">  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
@@ -38,11 +44,16 @@
     ?>
 
     
-    <div class="container pt-5 mt-5">
+    <div class="container pt-3">
         <div class="row">
-            <div class="col-12">
-                <h2>All Products</h2>
+            <div class="col-12 p-4 align-content-end" style="min-height: 200px; border-radius: 20px; background-image: linear-gradient(rgba(8, 20, 41, 0.7), rgba(8, 20, 41, 0.6)), url('assets/img/custom-built.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+                <h2 class="text-left text-white">Customize your PC</h2>
+                <p class="text-white">
+                    Build your own PC by selecting components that suit your needs. Use the filters on the left to narrow down your options.
+                <p> 
             </div>
+        </div>
+        <div class="row mt-4">
             <div class="col-md-3 filter">
                 <form id="filterForm">
                     

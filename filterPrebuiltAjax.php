@@ -41,11 +41,11 @@ if (!empty($prebuiltProducts)):
                 <p class="card-text">Brand: <?= htmlspecialchars($product['BrandName']) ?></p>
                 <p class="card-text">Type: <?= htmlspecialchars($product['ProductTypeName']) ?></p>
                 
-                <div class="add-to-cart-btn">
+                <div class="add-to-cart-btn ">
                     <form action="<?= "http://" . $_SERVER['SERVER_NAME'] ?>/project/systemproject/assets/includes/add-to-cart.php" method="POST">
                         <input type="hidden" name="product_id" value="<?= $product['productID'] ?>">
                         <input type="hidden" name="price" value="<?= $product['Price'] ?>">
-                        <button type="submit"  name="add_to_cart">Add to Cart</button>
+                        <button class="btn btn-secondary" type="submit"  name="add_to_cart">Add to Cart</button>
                     </form>
                 </div>
             </div>

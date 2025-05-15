@@ -27,11 +27,11 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                 </div>
                                 <div class="offcanvas-body">
-
+                                    <?php $carttotal = 0; ?>
                                     <?php if (!empty($cartItems)): ?>
                                     <ul class="list-group mb-3">
                                         <?php foreach ($cartItems as $item): 
-                                        $carttotal = 0;
+                                        
                                         $subtotal = $item['price_at_time'] * $item['quantity'];
                                         $carttotal += $subtotal;
                                         ?>

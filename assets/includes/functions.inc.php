@@ -358,25 +358,29 @@ function addToCart($userId, $productId, $price) {
     $cartId = getCartId($userId);
 
     // Check if item already in cart
-    $stmt = mysqli_prepare($conn, "SELECT cart_detail_id, quantity FROM Cart_Details WHERE cart_id = ? AND product_id = ?");
-    mysqli_stmt_bind_param($stmt, "ii", $cartId, $productId);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
+    $checkStmt = mysqli_prepare($conn, "SELECT cart_detail_id, quantity FROM Cart_Details WHERE cart_id = ? AND product_id = ?");
+    mysqli_stmt_bind_param($checkStmt, "ii", $cartId, $productId);
+    mysqli_stmt_execute($checkStmt);
+    $result = mysqli_stmt_get_result($checkStmt);
     $item = mysqli_fetch_assoc($result);
+    mysqli_stmt_close($checkStmt); // ✅ Close after use
 
     if ($item) {
         // Update quantity
         $newQty = $item['quantity'] + 1;
-        $stmt = mysqli_prepare($conn, "UPDATE Cart_Details SET quantity = ? WHERE cart_detail_id = ?");
-        mysqli_stmt_bind_param($stmt, "ii", $newQty, $item['cart_detail_id']);
+        $updateStmt = mysqli_prepare($conn, "UPDATE Cart_Details SET quantity = ? WHERE cart_detail_id = ?");
+        mysqli_stmt_bind_param($updateStmt, "ii", $newQty, $item['cart_detail_id']);
+        mysqli_stmt_execute($updateStmt);
+        mysqli_stmt_close($updateStmt); // ✅ Close after use
     } else {
         // Insert new item
-        $stmt = mysqli_prepare($conn, "INSERT INTO Cart_Details (cart_id, product_id, quantity, price_at_time) VALUES (?, ?, 1, ?)");
-        mysqli_stmt_bind_param($stmt, "iid", $cartId, $productId, $price);
+        $insertStmt = mysqli_prepare($conn, "INSERT INTO Cart_Details (cart_id, product_id, quantity, price_at_time) VALUES (?, ?, 1, ?)");
+        mysqli_stmt_bind_param($insertStmt, "iid", $cartId, $productId, $price);
+        mysqli_stmt_execute($insertStmt);
+        mysqli_stmt_close($insertStmt); // ✅ Close after use
     }
-
-    mysqli_stmt_execute($stmt);
 }
+
 
 function getCartItems($userId) {
     $conn = connectDatabase();

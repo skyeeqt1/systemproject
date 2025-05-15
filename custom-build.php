@@ -1,8 +1,10 @@
 <?php
-    session_start();
+
+    
     include_once './assets/includes/dbh.inc.php';
     require_once './assets/includes/functions.inc.php'; // Include necessary functions
 
+    session_start();
     // Get filter data from the form
     $priceMin = isset($_GET['priceMin']) ? intval($_GET['priceMin']) : null;
     $priceMax = isset($_GET['priceMax']) ? intval($_GET['priceMax']) : null;
@@ -18,6 +20,20 @@
 
     // Fetch filtered products
     $filteredProducts = getFilteredProducts($conn, $priceRange, $brandIDs, $productTypeIDs, $tagIDs);
+
+    // Check if the user is logged in
+    if (!isset($_SESSION['userID'])) {
+        echo "Please log in to view your cart.";
+        exit;
+    }
+
+    $userId = $_SESSION['userID']; // Get the user ID from the session
+    $cartId = getCartId($userId); // Get the cart ID for the user
+
+    // Get cart items from the database
+    $cartItems = getCartItems($userId);
+    $total = getCartTotal($conn, $cartId); // Get the total price of the cart
+
 ?>
 
 <!DOCTYPE html>

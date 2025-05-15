@@ -79,7 +79,7 @@ $total = getCartTotal($conn, $cartId); // Get the total price of the cart
                             <td>
                                 <input type="number" class="form-control" name="quantities[<?= $item['product_id'] ?>]" value="<?= $item['quantity'] ?>" min="1" style="width: 70px;">
                             </td>
-                            <td class="text-primary fw-semibold">$<?= number_format($item['price_at_time'] * $item['quantity'], 2) ?></td>
+                            <td class="text-primary fw-semibold">₱<?= number_format($item['price_at_time'] * $item['quantity'], 2) ?></td>
                             <td>
                                 <button class="btn btn-sm btn-outline-danger" type="submit" name="remove_product_id" value="<?= $item['product_id'] ?>">×</button>
                             </td>

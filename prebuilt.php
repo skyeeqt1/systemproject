@@ -3,6 +3,7 @@
     include_once './assets/includes/dbh.inc.php';
     require_once './assets/includes/functions.inc.php'; // Include necessary functions
 
+
     // Get filter data from the form
     $priceMin = isset($_GET['priceMin']) ? intval($_GET['priceMin']) : null;
     $priceMax = isset($_GET['priceMax']) ? intval($_GET['priceMax']) : null;

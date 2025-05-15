@@ -21,12 +21,6 @@
     // Fetch filtered products
     $filteredProducts = getFilteredProducts($conn, $priceRange, $brandIDs, $productTypeIDs, $tagIDs);
 
-    // Check if the user is logged in
-    if (!isset($_SESSION['userID'])) {
-        echo "Please log in to view your cart.";
-        exit;
-    }
-
     $userId = $_SESSION['userID']; // Get the user ID from the session
     $cartId = getCartId($userId); // Get the cart ID for the user
 

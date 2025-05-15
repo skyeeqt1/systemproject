@@ -7,7 +7,8 @@ session_start();
 
 // Check if the session contains a valid user ID
 if (!isset($_SESSION['userID'])) {
-    echo "User not logged in.<br>";
+    header("location: ../../login.php");
+    // echo "Please log in to view your cart.";
     exit;
 }
 

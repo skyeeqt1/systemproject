@@ -1,5 +1,5 @@
 /* Centering the login form */
-.container {
+.signup-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,10 +11,10 @@
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     text-align: center;
-    width: 400px;
+    width: 550px;
 }
 .logo-img {
-    width: 50px;
+    width: 150px;
     margin-bottom: 10px;
 }
 h2 {

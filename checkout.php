@@ -118,7 +118,7 @@ $total = getCartTotal($conn, $cartId); // Get the total price of the cart
                             <?php foreach ($cartItems as $item): ?>
                                 <tr>
                                 <td class="d-flex align-items-center gap-3">
-                                    <img src="/path/to/image.jpg" class="rounded" width="50" height="50">
+                                    <img src="./<?= $item['ImageURL']; ?>" class="rounded" width="50" height="50">
                                     <span><?= htmlspecialchars($item['ProductName']) ?></span>
                                 </td>
                                 <td>$<?= number_format($item['price_at_time'], 2) ?></td>

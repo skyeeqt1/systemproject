@@ -13,7 +13,6 @@
                 <div class="col-md-7 justify-content-center d-flex gap-3">
                     <a class="nav-link text-dark fw-medium" href="./custom-build.php">System Builder</a>
                     <a class="nav-link text-dark fw-medium" href="./prebuilt.php">Pre-built PC</a>
-                    <a class="nav-link text-dark fw-medium" href="#">Laptops</a>
                 </div>
 
                 <div class="col-md-3 d-flex gap-3 align-items-center justify-content-end">
@@ -54,8 +53,8 @@
                                         <span>₱<?= number_format($carttotal, 2) ?></span>
                                     </div>
 
-                                    <a href="/cart.php" class="btn btn-primary w-100">View Full Cart</a>
-                                    <a href="/checkout.php" class="btn btn-success w-100 mt-2">Proceed to Checkout</a>
+                                    <a href="./cart.php" class="btn btn-primary w-100">View Full Cart</a>
+                                    <a href="./checkout.php" class="btn btn-success w-100 mt-2">Proceed to Checkout</a>
 
                                     <?php else: ?>
                                     <h3 class="text-center mt-5 text-muted">No items yet on your cart</h3>

@@ -1,21 +1,25 @@
 /* Centering the login form */
-.container {
+body {
+    background-color: #f8f9fa !important;
+}
+.login-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 80vh;
     text-align: center;
 }
+ 
 .login-box {
     background: linear-gradient(135deg, #1a1a2e, #16213e);
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     color: white;
-    width: 400px;
+    width: 450px;
 }
 .logo-img {
-    width: 60px;
+    width: 100px;
     margin-bottom: 15px;
 }
 h2 {

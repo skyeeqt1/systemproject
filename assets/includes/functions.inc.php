@@ -399,28 +399,6 @@ function getCartId($userId) {
     return $cart['cart_id'];
 }
 
-// function getCartId($userId) {
-//     $conn = connectDatabase();
-
-//     // Check if the user already has a cart
-//     $stmt = mysqli_prepare($conn, "SELECT cart_id FROM Carts WHERE user_id = ?");
-//     mysqli_stmt_bind_param($stmt, "i", $userId);
-//     mysqli_stmt_execute($stmt);
-//     $result = mysqli_stmt_get_result($stmt);
-//     $cart = mysqli_fetch_assoc($result);
-
-//     // If no cart, create one
-//     if (!$cart) {
-//         $stmt = mysqli_prepare($conn, "INSERT INTO Carts (user_id) VALUES (?)");
-//         mysqli_stmt_bind_param($stmt, "i", $userId);
-//         mysqli_stmt_execute($stmt);
-//         $cartId = mysqli_insert_id($conn); // Get the newly created cart ID
-//         // echo "New cart created with ID: " . $cartId; // Debugging line
-//         return $cartId;
-//     }
-
-//     return $cart['cart_id'];
-// }
 
 function addToCart($userId, $productId, $price) {
     $conn = connectDatabase();

@@ -1,9 +1,9 @@
 <?php
-    session_start();
+
     include_once './assets/includes/dbh.inc.php';
     require_once './assets/includes/functions.inc.php'; // Include necessary functions
 
-
+    session_start();
     // Get filter data from the form
     $priceMin = isset($_GET['priceMin']) ? intval($_GET['priceMin']) : null;
     $priceMax = isset($_GET['priceMax']) ? intval($_GET['priceMax']) : null;
@@ -17,6 +17,25 @@
         $priceRange = ['min' => $priceMin, 'max' => $priceMax];
     }
 
+    if (isset($_SESSION['userID'])) {
+        // Prepare price range
+        $priceRange = null;
+        if ($priceMin !== null && $priceMax !== null) {
+            $priceRange = ['min' => $priceMin, 'max' => $priceMax];
+        }
+
+        // Fetch filtered products
+        $filteredProducts = getFilteredProducts($conn, $priceRange, $brandIDs, $productTypeIDs, $tagIDs);
+
+
+        $userId = $_SESSION['userID']; // Get the user ID from the session
+        $cartId = getCartId($userId); // Get the cart ID for the user
+
+        // Get cart items from the database
+        $cartItems = getCartItems($userId);
+        $total = getCartTotal($conn, $cartId); // Get the total price of the cart
+    }
+    
     // Fetch filtered products
     $filteredProducts = getFilteredProducts($conn, $priceRange, $brandIDs, $productTypeIDs, $tagIDs);
 ?>

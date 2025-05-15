@@ -67,7 +67,7 @@ $total = getCartTotal($conn, $cartId); // Get the total price of the cart
         </button>
     </div>
     
-    <div class="container-fluid">
+    <div class="container-fluid" style="background-color: #fafafa;">
         <div class="container">
             <div class="row">
                 <div class="col-12">

@@ -19,34 +19,7 @@
     justify-content: center;
     gap: 30px;
 }
-/* .btn {
-    font-size: 20px;
-    font-weight: bold;
-    padding: 12px 24px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.3s;
-    width: 250px;
-    height: 80px;
-} */
-/* .btn-primary {
-    background-color: #78a4f1;
-    color: white;
-    border: none;
-} */
-/* .btn-primary:hover {
-    background-color: transparent;
-    border: #78a4f1 4px solid;
-} */
-/* .btn-secondary {
-    background-color: #78a4f1;
-    color: white;
-    border: none;
-}
-.btn-secondary:hover {
-    background-color: transparent;
-    border: #78a4f1 4px solid;
-} */
+
 footer {
     background-color: #081429; 
     color: white;

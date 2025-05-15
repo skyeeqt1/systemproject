@@ -539,7 +539,7 @@ function handleCheckout($userId, $checkoutData) {
 }
 
 function insertAddress($conn, $data) {
-    $stmt = $conn->prepare("INSERT INTO Addresses (first_name, last_name, email, phone, street_address, city, province, zip_code)
+    $stmt = $conn->prepare("INSERT INTO Addresses (FirstName, last_name, email, phone, street_address, city, province, zip_code)
                             VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("ssssssss",
         $data['first_name'], $data['last_name'], $data['email'], $data['phone'],

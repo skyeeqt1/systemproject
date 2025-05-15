@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['checkout'])) {
     $success = handleCheckout($userId, $checkoutData);
 
     if ($success) {
-        header("Location: ../../checkout-success.php?order_id=" . $success);
+        header("Location: ../../thank-you.php");
         exit;
     } else {
         echo "Something went wrong. Please try again.";

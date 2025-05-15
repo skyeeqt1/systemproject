@@ -6,7 +6,8 @@ session_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION['userID'])) {
-    echo "Please log in to view your cart.";
+    header("location: ../../login.php");
+    // echo "Please log in to view your cart.";
     exit;
 }
 

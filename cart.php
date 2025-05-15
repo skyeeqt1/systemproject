@@ -17,7 +17,6 @@ $cartId = getCartId($userId); // Get the cart ID for the user
 $cartItems = getCartItems($userId);
 $total = getCartTotal($conn, $cartId); // Get the total price of the cart
 
-
 // var_dump($cartItems);
 ?>
 <!DOCTYPE html>
@@ -100,8 +99,8 @@ $total = getCartTotal($conn, $cartId); // Get the total price of the cart
                 <div class="bg-white p-4 rounded shadow-sm">
                 <h3 class="text-black font-weight-bold">Cart Totals</h5>
                 <ul class="list-unstyled mb-3">
-                    <span class="text-black">Total</span>
-                    <span class="text-black">$<?= number_format($total, 2) ?></span>
+                    <span class="text-black">Total:</span>
+                    <span class="text-black">$<?= $total ?></span>
                     </li>
                 </ul>
                 <button type="submit" formaction="./checkout.php" formmethod="POST" name="checkout" class="btn btn-primary w-100">Proceed To Checkout</button>

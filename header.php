@@ -32,8 +32,9 @@
                                     <?php if (!empty($cartItems)): ?>
                                     <ul class="list-group mb-3">
                                         <?php foreach ($cartItems as $item): 
+                                        $carttotal = 0;
                                         $subtotal = $item['price_at_time'] * $item['quantity'];
-                                        $total += $subtotal;
+                                        $carttotal += $subtotal;
                                         ?>
                                         <li class="list-group-item d-flex justify-content-between align-items-start flex-column">
                                             <div class="d-flex w-100 justify-content-between">
@@ -50,7 +51,7 @@
 
                                     <div class="d-flex justify-content-between fw-bold mb-3">
                                         <span>Total</span>
-                                        <span>₱<?= number_format($total, 2) ?></span>
+                                        <span>₱<?= number_format($carttotal, 2) ?></span>
                                     </div>
 
                                     <a href="/cart.php" class="btn btn-primary w-100">View Full Cart</a>

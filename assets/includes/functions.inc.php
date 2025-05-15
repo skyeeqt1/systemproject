@@ -213,7 +213,7 @@ function getTags($conn) {
     return $tags;
 }
 function getFilteredProducts($conn, $priceSQL, $brandIDs, $productTypeIDs, $tagIDs) {
-    $query = "SELECT p.productID, p.ProductName, p.Price, p.ImageURL, b.BrandName, pt.ProductTypeName
+    $query = "SELECT DISTINCT p.productID, p.ProductName, p.Price, p.ImageURL, b.BrandName, pt.ProductTypeName
               FROM products p
               INNER JOIN brands b ON p.BrandID = b.BrandID
               INNER JOIN producttypes pt ON p.ProductTypeID = pt.ProductTypeID

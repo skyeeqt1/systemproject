@@ -32,7 +32,9 @@ if (!empty($filteredProducts)):
 ?>
     <div class="col-md-4 mt-4">
         <div class="card">
-            <img src="<?= $product['ImageURL'] ? htmlspecialchars('.' . $product['ImageURL']) : 'https://thumb.ac-illust.com/b1/b170870007dfa419295d949814474ab2_t.jpeg' ?>" class="card-img-top" alt="<?= htmlspecialchars($product['ProductName']) ?>">
+            <div class="card-picture" style="height: 200px; background-size: cover; background-position: center center; background-repeat: no-repat; background-image: url('<?= $product['ImageURL'] ? htmlspecialchars('.' . $product['ImageURL']) : 'https://thumb.ac-illust.com/b1/b170870007dfa419295d949814474ab2_t.jpeg' ?>');">
+            </div>
+            <?php /*<img src="<?= $product['ImageURL'] ? htmlspecialchars('.' . $product['ImageURL']) : 'https://thumb.ac-illust.com/b1/b170870007dfa419295d949814474ab2_t.jpeg' ?>" class="card-img-top" alt="<?= htmlspecialchars($product['ProductName']) ?>">*/ ?>
             <div class="card-body">
                 <h5 class="card-title"><?= htmlspecialchars($product['ProductName']) ?></h5>
                 <p class="card-text">Price: ₱<?= htmlspecialchars($product['Price']) ?></p>

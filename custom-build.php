@@ -76,16 +76,16 @@
                     <div class="filter-card">
                         <h3>Price</h3>
                         <div>
-                            <input type="checkbox" name="priceRange[]" value="100-199" class="price-filter"> $100 - $199
+                            <input type="checkbox" name="priceRange[]" value="0-19999" class="price-filter"> ₱0 - ₱19999
                         </div>
                         <div>
-                            <input type="checkbox" name="priceRange[]" value="200-299" class="price-filter"> $200 - $299
+                            <input type="checkbox" name="priceRange[]" value="20000-39999" class="price-filter"> ₱20000 - ₱39999
                         </div>
                         <div>
-                            <input type="checkbox" name="priceRange[]" value="300-399" class="price-filter"> $300 - $399
+                            <input type="checkbox" name="priceRange[]" value="40000-69999" class="price-filter"> ₱40000 - ₱69999
                         </div>
                         <div>
-                            <input type="checkbox" name="priceRange[]" value="400+" class="price-filter"> $400+
+                            <input type="checkbox" name="priceRange[]" value="70000" class="price-filter"> ₱70000+
                         </div>
                     </div>
 

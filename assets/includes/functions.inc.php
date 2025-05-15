@@ -218,7 +218,8 @@ function getFilteredProducts($conn, $priceSQL, $brandIDs, $productTypeIDs, $tagI
               INNER JOIN brands b ON p.BrandID = b.BrandID
               INNER JOIN producttypes pt ON p.ProductTypeID = pt.ProductTypeID
               LEFT JOIN producttags ptg ON p.ProductID = ptg.ProductID
-              WHERE 1=1";
+              WHERE 1=1
+              AND p.ProductTypeID NOT IN (11, 12)";
 
     // Add price conditions
     if ($priceSQL) {
@@ -279,32 +280,100 @@ function getFilteredProducts($conn, $priceSQL, $brandIDs, $productTypeIDs, $tagI
     return $products;
 }
 
+function getPrebuilt($conn, $priceSQL, $brandIDs, $productTypeIDs, $tagIDs) {
+    $query = "SELECT DISTINCT p.productID, p.ProductName, p.Price, p.ImageURL, b.BrandName, pt.ProductTypeName
+    FROM products p
+    INNER JOIN brands b ON p.BrandID = b.BrandID
+    INNER JOIN producttypes pt ON p.ProductTypeID = pt.ProductTypeID
+    LEFT JOIN producttags ptg ON p.ProductID = ptg.ProductID
+    WHERE 1=1
+    AND p.ProductTypeID IN (11, 12)";
+
+// Add price conditions
+if ($priceSQL) {
+$query .= " AND $priceSQL";
+}
+
+// Add brand filters
+if (!empty($brandIDs)) {
+$brandPlaceholders = implode(',', array_fill(0, count($brandIDs), '?'));
+$query .= " AND p.brandID IN ($brandPlaceholders)";
+}
+
+// Add product type filters
+if (!empty($productTypeIDs)) {
+$typePlaceholders = implode(',', array_fill(0, count($productTypeIDs), '?'));
+$query .= " AND p.productTypeID IN ($typePlaceholders)";
+}
+
+// Add tag filters
+if (!empty($tagIDs)) {
+$tagPlaceholders = implode(',', array_fill(0, count($tagIDs), '?'));
+$query .= " AND ptg.tagID IN ($tagPlaceholders)";
+}
+
+// Prepare statement
+$stmt = mysqli_prepare($conn, $query);
+
+// Bind parameters
+$paramTypes = '';
+$paramValues = [];
+if (!empty($brandIDs)) {
+$paramTypes .= str_repeat('i', count($brandIDs));
+$paramValues = array_merge($paramValues, $brandIDs);
+}
+if (!empty($productTypeIDs)) {
+$paramTypes .= str_repeat('i', count($productTypeIDs));
+$paramValues = array_merge($paramValues, $productTypeIDs);
+}
+if (!empty($tagIDs)) {
+$paramTypes .= str_repeat('i', count($tagIDs));
+$paramValues = array_merge($paramValues, $tagIDs);
+}
+
+if (!empty($paramTypes)) {
+mysqli_stmt_bind_param($stmt, $paramTypes, ...$paramValues);
+}
+
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+
+// Fetch products
+$products = [];
+while ($row = mysqli_fetch_assoc($result)) {
+$products[] = $row;
+}
+
+mysqli_stmt_close($stmt);
+return $products;
+}
+
 function getBudgetPCs($conn) {
-    // SQL query to select all budget PCs
-    $sql = "SELECT * FROM budgetpc ORDER BY bpcName ASC;";
-    $stmt = mysqli_stmt_init($conn);
+// SQL query to select all budget PCs
+$sql = "SELECT * FROM budgetpc ORDER BY bpcName ASC;";
+$stmt = mysqli_stmt_init($conn);
 
-    // Prepare the statement
-    if (!mysqli_stmt_prepare($stmt, $sql)) {
-        error_log("SQL Statement Preparation Failed: " . mysqli_error($conn));
-        return []; // Return an empty array if the query fails
-    }
+// Prepare the statement
+if (!mysqli_stmt_prepare($stmt, $sql)) {
+error_log("SQL Statement Preparation Failed: " . mysqli_error($conn));
+return []; // Return an empty array if the query fails
+}
 
-    // Execute the statement
-    mysqli_stmt_execute($stmt);
+// Execute the statement
+mysqli_stmt_execute($stmt);
 
-    // Get the result set
-    $resultData = mysqli_stmt_get_result($stmt);
+// Get the result set
+$resultData = mysqli_stmt_get_result($stmt);
 
-    // Fetch all budget PCs into an array
-    $budgetPCs = [];
-    while ($row = mysqli_fetch_assoc($resultData)) {
-        $budgetPCs[] = $row;
-    }
+// Fetch all budget PCs into an array
+$budgetPCs = [];
+while ($row = mysqli_fetch_assoc($resultData)) {
+$budgetPCs[] = $row;
+}
 
-    // Close the statement and return budget PCs
-    mysqli_stmt_close($stmt);
-    return $budgetPCs;
+// Close the statement and return budget PCs
+mysqli_stmt_close($stmt);
+return $budgetPCs;
 }
 
 

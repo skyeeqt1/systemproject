@@ -100,7 +100,7 @@ $total = getCartTotal($conn, $cartId); // Get the total price of the cart
                 <h3 class="text-black font-weight-bold">Cart Totals</h5>
                 <ul class="list-unstyled mb-3">
                     <span class="text-black">Total:</span>
-                    <span class="text-black">$<?= $total ?></span>
+                    <span class="text-black">₱<?= $total ?></span>
                     </li>
                 </ul>
                 <button type="submit" formaction="./checkout.php" formmethod="POST" name="checkout" class="btn btn-primary w-100">Proceed To Checkout</button>

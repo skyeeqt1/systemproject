@@ -56,6 +56,23 @@
         <div class="row mt-3">
             <div class="col-md-12 filter p-0">
                 <form id="filterForm" class="row gap-3 m-0">
+                    
+                    <div class="filter-card col m-0">
+                        <h3>Price</h3>
+                        <div>
+                            <input type="checkbox" name="priceRange[]" value="0-19999" class="price-filter"> ₱0 - ₱19999
+                        </div>
+                        <div>
+                            <input type="checkbox" name="priceRange[]" value="20000-39999" class="price-filter"> ₱20000 - ₱39999
+                        </div>
+                        <div>
+                            <input type="checkbox" name="priceRange[]" value="40000-69999" class="price-filter"> ₱40000 - ₱69999
+                        </div>
+                        <div>
+                            <input type="checkbox" name="priceRange[]" value="70000" class="price-filter"> ₱70000+
+                        </div>
+                    </div>
+
                     <div class="filter-card col m-0">
                         <h3>Brand</h3>
                         <div class="row m-0">
@@ -93,12 +110,12 @@
                             <label class="form-check-label" for="tag1">High-end</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="tag[]" value="3" id="tag3">
-                            <label class="form-check-label" for="tag3">Low-end</label>
-                        </div>
-                        <div class="form-check">
                             <input class="form-check-input" type="checkbox" name="tag[]" value="2" id="tag2">
                             <label class="form-check-label" for="tag2">Mid-end</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="tag[]" value="3" id="tag3">
+                            <label class="form-check-label" for="tag3">Low-end</label>
                         </div>
                     </div>
                    
@@ -127,7 +144,7 @@
         const formData = $('#filterForm').serialize(); // Serialize form data
 
             $.ajax({
-                url: 'filterProductsAjax.php', // Backend script for filtering
+                url: 'filterPrebuiltAjax.php', // Backend script for filtering
                 method: 'GET',
                 data: formData,
                 success: function(response) {

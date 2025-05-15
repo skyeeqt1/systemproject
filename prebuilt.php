@@ -98,7 +98,7 @@
                             <label class="form-check-label" for="type<?= $type['ProductTypeID'] ?>">Prebuilt PC</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="productType[]" value="11" id="type12">
+                            <input class="form-check-input" type="checkbox" name="productType[]" value="12" id="type12">
                             <label class="form-check-label" for="type<?= $type['ProductTypeID'] ?>">Laptop</label>
                         </div>
                     </div>

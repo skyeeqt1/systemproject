@@ -11,7 +11,7 @@ $tagIDs = isset($_GET['tag']) ? array_map('intval', $_GET['tag']) : [];
 // Parse the price ranges into SQL conditions
 $priceConditions = [];
 foreach ($priceRanges as $range) {
-    if ($range === "70000+") {
+    if ($range === "70000") {
         $priceConditions[] = "price >= 70000"; // Price above 70000
     } elseif (preg_match('/(\d+)-(\d+)/', $range, $matches)) {
         $min = intval($matches[1]);

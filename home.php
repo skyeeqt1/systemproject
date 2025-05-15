@@ -75,21 +75,24 @@ $total = getCartTotal($conn, $cartId); // Get the total price of the cart
                     <p class="text-center">Your one-stop shop for custom-built PCs and pre-built systems. Whether you're a gamer, content creator, or just need a reliable computer, we've got you covered.</p>
                 </div>
             </div>
-            <div class="row pt-5">
-                <div class="col-md-6" style="min-height: 400px;">
+            <div class="row pt-5 gap-3">
+                <div class="col" style="min-height: 400px; border-radius: 20px; background-image: linear-gradient(rgba(8, 20, 41, 0.7), rgba(8, 20, 41, 0.6)), url('assets/img/custom-built.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
                     <div class="row" style="height: 100%;" class="align-items-end">
-                        <div class="col-8">
-                            <h2>Custom Build Your PC</h2>
-                            <p>Design your own PC with our easy-to-use system builder. Choose from a wide range of components to create the perfect machine for your needs.</p>
+                        <div class="col-10 align-content-end p-5">
+                            <h2 class="text-white">Custom Build Your PC</h2>
+                            <p class="text-white">Design your own PC with our easy-to-use system builder. Choose from a wide range of components to create the perfect machine for your needs.</p>
                             <a href="custom-build.php"><button class="btn btn-primary">Customize Now</button></a>
                         </div>
                     </div>
-                
                 </div>
-                <div class="col-md-6" style="min-height: 400px;">
-                    <h2>Pre-built PC</h2>
-                    <p>Don't want to build it yourself? Check out our selection of pre-built PCs, ready to go right out of the box.</p>
-                    <a href="prebuilt.php"><button class="btn btn-secondary">Buy Pre-built PC</button></a>
+                <div class="col" style="min-height: 400px; border-radius: 20px; background-image: linear-gradient(rgba(8, 20, 41, 0.7), rgba(8, 20, 41, 0.6)), url('assets/img/prebuilt.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+                    <div class="row" style="height: 100%;" class="align-items-end">
+                        <div class="col-10 align-content-end p-5">
+                            <h2 class="text-white">Pre-built PC</h2>
+                            <p class="text-white">Don't want to build it yourself? Check out our selection of pre-built PCs, ready to go right out of the box.</p>
+                            <a href="prebuilt.php"><button class="btn btn-secondary">Buy Pre-built PC</button></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

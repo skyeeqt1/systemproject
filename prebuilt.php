@@ -58,32 +58,48 @@
                 <form id="filterForm" class="row gap-3 m-0">
                     <div class="filter-card col m-0">
                         <h3>Brand</h3>
-                        <?php
-                        $brands = getBrands($conn); // Fetch brands from the database
-                        foreach ($brands as $brand):
-                        ?>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="brand[]" value="<?= $brand['BrandID'] ?>" id="brand<?= $brand['BrandID'] ?>">
-                                <label class="form-check-label" for="brand<?= $brand['BrandID'] ?>">
-                                    <?= htmlspecialchars($brand['BrandName']) ?>
-                                </label>
-                            </div>
-                        <?php endforeach; ?>
+                        <div class="row m-0">
+                            <?php
+                            $brands = getBrands($conn); // Fetch brands from the database
+                            foreach ($brands as $brand):
+                            ?>
+                                <div class="form-check col-4">
+                                    <input class="form-check-input" type="checkbox" name="brand[]" value="<?= $brand['BrandID'] ?>" id="brand<?= $brand['BrandID'] ?>">
+                                    <label class="form-check-label" for="brand<?= $brand['BrandID'] ?>">
+                                        <?= htmlspecialchars($brand['BrandName']) ?>
+                                    </label>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                        
+                    </div>
+
+                    <div class="filter-card col m-0">
+                        <h3>Type</h3>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="productType[]" value="11" id="type11">
+                            <label class="form-check-label" for="type<?= $type['ProductTypeID'] ?>">Prebuilt PC</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="productType[]" value="11" id="type12">
+                            <label class="form-check-label" for="type<?= $type['ProductTypeID'] ?>">Laptop</label>
+                        </div>
                     </div>
 
                     <div class="filter-card col m-0">
                         <h3>Classification</h3>
-                        <?php
-                        $productTypes = getProductTypes($conn); // Fetch product types from the database
-                        foreach ($productTypes as $type):
-                        ?>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="productType[]" value="<?= $type['ProductTypeID'] ?>" id="type<?= $type['ProductTypeID'] ?>">
-                                <label class="form-check-label" for="type<?= $type['ProductTypeID'] ?>">
-                                    <?= htmlspecialchars($type['ProductTypeName']) ?>
-                                </label>
-                            </div>
-                        <?php endforeach; ?>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="tag[]" value="1" id="tag1">
+                            <label class="form-check-label" for="tag1">High-end</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="tag[]" value="3" id="tag3">
+                            <label class="form-check-label" for="tag3">Low-end</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="tag[]" value="2" id="tag2">
+                            <label class="form-check-label" for="tag2">Mid-end</label>
+                        </div>
                     </div>
                    
                     <!-- <button type="submit" class="btn btn-primary">Apply Filters</button> -->
